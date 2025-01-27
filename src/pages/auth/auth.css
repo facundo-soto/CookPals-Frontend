@@ -1,0 +1,45 @@
+.form{
+    margin: 10vh auto;
+    width: 90%;
+    max-width: 700px;
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction:column;
+    padding: 20px 0;
+    border-radius: 10px;
+}
+
+.form *{
+    width: fit-content;
+    margin: auto;
+}
+
+.form .title{
+    margin-bottom: 30px;
+}
+
+.form .input{
+    width: 80%;
+    margin: 20px auto;
+}
+
+.form button{
+    margin: 20px auto;
+}
+
+.change-form{
+    cursor: pointer;
+    display: flex;
+    margin: 2vh auto;
+    width: fit-content;
+}
+
+.google-btn{
+    display: flex;
+    align-items: center;
+}
+
+.google-btn i{
+    font-size: 1.5rem;
+    margin-right: 10px;
+}

@@ -1,0 +1,159 @@
+.create-recipe{
+    max-width: 750px;
+}
+
+.create-recipe .image-container{
+    width: 100%;
+    background-color: skyblue;
+}
+
+.create-recipe .image-label{
+    display: flex;
+    margin: auto;
+    width: fit-content;
+    max-width: 85%;
+    position: relative;
+    cursor: pointer;
+}
+
+.create-recipe .image-label .overlay-icon{
+    font-size: 50px;
+    top: calc(50% - 25px);
+    left: calc(50% - 25px);
+}
+
+.create-recipe .image-label:hover .overlay{
+    background-color: rgba(135, 207, 235, 0.5);
+}
+
+.create-recipe .image-label:hover .overlay-icon{
+    color: skyblue;
+}
+
+.create-recipe .recipe-image{
+    height: auto;
+    max-height: 65vh;
+    object-fit: cover;
+    display: flex;
+    min-width: 400px;
+    width: 100%;
+}
+
+.create-recipe .default-image{
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+.create-recipe .default-image .default-image-icon{
+    color: white;
+    font-size: 50px;
+    margin: auto;
+}
+
+.create-recipe .default-image .title{
+    color: white;
+}
+
+.create-recipe .create-recipe-form{
+    padding: 20px;
+}
+
+.create-recipe .recipe-title{
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.create-recipe .recipe-numbers{
+    display: flex;
+    justify-content: space-around;
+}
+
+.create-recipe .recipe-numbers div{
+    display: flex;
+    align-items: center;
+}
+
+.create-recipe .recipe-numbers div i{
+    color: skyblue;
+    font-size: 30px;
+    margin: 0 7px;
+}
+
+.create-recipe .create-recipe-form .button{
+    display: flex;
+    margin: auto;
+    align-items: center;
+}
+
+.create-recipe .create-recipe-form .button i{
+    margin-right: 5px;
+    font-size: 25px;
+}
+
+.create-recipe .recipe-ingredient{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+.create-recipe .recipe-ingredient .input{
+    margin: 0;
+}
+
+.create-recipe .recipe-ingredient i{
+    font-size: 30px;
+    margin-left: 5px;
+}
+
+.create-recipe .create-recipe-bottom{
+    display: flex;
+    margin-top: 3vh;
+    justify-content: space-between;
+}
+
+.create-recipe .create-recipe-bottom .button{
+    margin: 0;
+}
+
+.absolute-box .options{
+    width: 100%;
+    display: flex;
+    font-size: 1.1rem;
+    justify-content: space-around;
+}
+
+.options span{
+    padding: 0 5% 5px 5%;
+    cursor: pointer;
+}
+
+.selected{
+    font-weight: 700;
+    border-bottom: solid 2px skyblue;
+}
+
+.filters{
+    margin-top: 3vh;
+    display: grid;
+    row-gap: 10px;
+    width: 90%;
+    grid-template-columns: repeat(3, 1fr);
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+.filter{
+    display: flex;
+    align-items: center;
+}
+
+.filter i{
+    font-size: 1.5rem;
+    margin-right: 3px;
+}
+
+.filters-box{
+    height: 35vh;
+}

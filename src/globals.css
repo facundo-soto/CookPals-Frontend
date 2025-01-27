@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style: none;
+  border: none;
+  outline: none;
+  font-family: 'Inria Sans', sans-serif;
+  transition: ease all 0.3s;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #dedede;
+}
+
+.color-hover:hover {
+  color: rgb(38, 144, 185);
+
+  * {
+    color: rgb(38, 144, 185);
+  }
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.p {
+  text-align: center;
+  font-size: 1rem;
+}
+
+.color-sk {
+  color: skyblue;
+  cursor: pointer;
+}
+
+.color-sk:hover {
+  color: rgb(38, 144, 185);
+  transform: translate(0, -2px);
+}
+
+.button {
+  font-size: 1.3rem;
+  font-weight: 700;
+  background-color: skyblue;
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: rgb(38, 144, 185);
+  transform: translate(0, -2px);
+}
+
+textarea{
+  resize: none;
+}
+
+.absolute-bg {
+  top: 0;
+  left: 0;
+  position: fixed;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.500);
+  height: 100%;
+  z-index: 1000;
+  display: flex;
+}
+
+.absolute-box {
+  margin: auto;
+  padding: 30px 0;
+  width: 90%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: whitesmoke;
+  border-radius: 10px;
+  border: solid 5px skyblue;
+  transform: translate(0, -30px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.input {
+  width: 80%;
+  font-size: 1rem;
+  display: flex;
+  margin: 20px auto;
+  padding: 10px;
+  border-radius: 5px;
+  border: solid 2px skyblue;
+}
+
+.main-box{
+  background-color: whitesmoke;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 800px;
+  margin: 5vh auto;
+  overflow: hidden;
+  transition: none;
+}
+
+.vanish{
+  display: none;
+}
+
+.overlay-icon{
+  position: absolute;
+  left: calc(50% - 15px);
+  top: calc(50% - 15px);
+  font-size: 30px;
+  color: rgba(0, 0, 0, 0);
+  cursor: pointer;
+}
+
+.overlay{
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.exit-icon{
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  font-size: 50px;
+}
+
+.recipes-container{
+  width: 90%;
+  max-width: 800px;
+  margin: 5vh auto;
+  padding: 0;
+  overflow: visible;
+  transition: none;
+  background-color: unset;
+}
+
+.no-hover{
+  pointer-events: none;
+}
+
+.no-content{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: gray;
+}
