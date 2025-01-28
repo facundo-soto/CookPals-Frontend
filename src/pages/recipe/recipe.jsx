@@ -17,7 +17,7 @@ export default function Recipe() {
             setRecipe(recipe);
         }
         user && recipeId ? getRecipe() : console.log("Loading");
-    }, [user]);
+    }, [user, getRecipeById, recipeId]);
 
     const handleCommentSubmit = async () => {
         if (newComment.text !== "" && newComment.stars !== 0) {

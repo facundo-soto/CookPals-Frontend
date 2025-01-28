@@ -4,6 +4,7 @@ import { onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndP
 import { getUser, createUser, updateImage } from '../firebase/users';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { REACT_APP_API_URL } from '../config/config';
 
 const AuthContext = createContext();
 
@@ -120,7 +121,7 @@ export function AuthProvider({ children }) {
     const changeUsername = async (newName) => {
         setIsLoading(true)
         try {
-            const response = await axios.post('http://localhost:5000/profile/update-username', {
+            const response = await axios.post(`${REACT_APP_API_URL}/profile/update-username`, {
                 uid: user.uid,
                 newName: newName
             });
@@ -166,7 +167,7 @@ export function AuthProvider({ children }) {
         formData.append("image", image);
 
         try {
-            const response = await axios.post("http://localhost:5000/profile/upload-image", formData, {
+            const response = await axios.post(`${REACT_APP_API_URL}/profile/upload-image`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -194,7 +195,7 @@ export function AuthProvider({ children }) {
             formData.append("recipe", JSON.stringify(recipe));
             formData.append("uid", user.uid);
             formData.append("image", image);
-            const response = await axios.post("http://localhost:5000/recipes/submit-recipe", formData, {
+            const response = await axios.post(`${REACT_APP_API_URL}/recipes/submit-recipe`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -215,7 +216,7 @@ export function AuthProvider({ children }) {
             const formData = new FormData();
             formData.append("image", image);
 
-            const response = await axios.post("http://localhost:5000/profile/upload-image", formData, {
+            const response = await axios.post(`${REACT_APP_API_URL}/profile/upload-image`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -233,7 +234,7 @@ export function AuthProvider({ children }) {
 
     const getRecipes = async () => {
         try {
-            const response = await axios.get("http://localhost:5000/recipes/get-recipes");
+            const response = await axios.get(`${REACT_APP_API_URL}/recipes/get-recipes`);
             return response.data;
         } catch (error) {
             console.error(error);
@@ -242,7 +243,7 @@ export function AuthProvider({ children }) {
 
     const getUserRecipes = async () => {
         try {
-            const response = await axios.get("http://localhost:5000/recipes/get-user-recipes", {
+            const response = await axios.get(`${REACT_APP_API_URL}/recipes/get-user-recipes`, {
                 params: {
                     uid: user.uid
                 }
@@ -255,7 +256,7 @@ export function AuthProvider({ children }) {
 
     const getRecipeById = async (id) => {
         try {
-            const response = await axios.get("http://localhost:5000/recipes/get-recipe-by-id", {
+            const response = await axios.get(`${REACT_APP_API_URL}/recipes/get-recipe-by-id`, {
                 params: {
                     id: id,
                     userId: user.uid
@@ -279,7 +280,7 @@ export function AuthProvider({ children }) {
             formData.append("recipeId", recipeId);
             formData.append("comment", JSON.stringify(comment));
 
-            const response = await axios.post("http://localhost:5000/recipes/submit-comment", formData, {
+            await axios.post(`${REACT_APP_API_URL}/recipes/submit-comment`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -294,7 +295,7 @@ export function AuthProvider({ children }) {
 
     const getUserSavedRecipes = async (uid) => {
         try {
-            const response = await axios.get("http://localhost:5000/recipes/get-saved-recipes", {
+            const response = await axios.get(`${REACT_APP_API_URL}/recipes/get-saved-recipes`, {
                 params: {
                     uid: uid
                 }
@@ -310,7 +311,7 @@ export function AuthProvider({ children }) {
     const saveRecipe = async (recipeId) => {
         setIsLoading(true);
         try {
-            const response = await axios.post("http://localhost:5000/recipes/save-recipe", {
+            await axios.post(`${REACT_APP_API_URL}/recipes/save-recipe`, {
                 uid: user.uid,
                 recipeId: recipeId
             });
@@ -325,7 +326,7 @@ export function AuthProvider({ children }) {
     const unsaveRecipe = async (recipeId) => {
         setIsLoading(true);
         try {
-            const response = await axios.post("http://localhost:5000/recipes/unsave-recipe", {
+            await axios.post(`${REACT_APP_API_URL}/recipes/unsave-recipe`, {
                 uid: user.uid,
                 recipeId: recipeId
             });

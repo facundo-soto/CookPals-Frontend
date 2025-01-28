@@ -27,7 +27,7 @@ export default function Profile() {
         }
         user?.uid && getRecipes();
         user?.uid && getSavedRecipes(user.uid);
-    }, [user, show])
+    }, [user, show, getUserRecipes, getUserSavedRecipes])
 
     return (
         <>
