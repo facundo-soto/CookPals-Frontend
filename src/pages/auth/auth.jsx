@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import Process from '../../components/process/process';
-import Loading from '../../components/loading/loading'
 import './auth.css';
 
 export default function Auth() {
@@ -26,7 +25,6 @@ export default function Auth() {
 
   return (
     <>
-      <Loading reqUser={false} />
       <Process input={"email"} callback={sendChangePassEmail} />
       <div className="form">
         <div className="title">{isLoging ? "Inicio de sesión" : "Registro"}</div>

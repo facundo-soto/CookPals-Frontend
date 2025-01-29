@@ -234,7 +234,11 @@ export function AuthProvider({ children }) {
 
     const getRecipes = async () => {
         try {
-            const response = await axios.get(`${REACT_APP_API_URL}/recipes/get-recipes`);
+            const response = await axios.get(`${REACT_APP_API_URL}/recipes/get-recipes`, {
+                params: {
+                    uid: user.uid
+                }
+            });
             return response.data;
         } catch (error) {
             console.error(error);

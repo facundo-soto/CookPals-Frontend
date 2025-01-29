@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import './recipe.css'
 import { useAuth } from '../../context/AuthContext';
-import Loading from '../../components/loading/loading';
+import LocalLoading from '../../components/localLoading/localLoading';
 
 
 export default function Recipe() {
@@ -27,7 +27,6 @@ export default function Recipe() {
 
     return (
         <>
-            <Loading reqUser={true} reqVerification={true} />
             {recipe ? (<>
                 <div className="recipe-container main-box">
                     <div className="image-container">
@@ -81,8 +80,8 @@ export default function Recipe() {
                             ))}
                         </div>
                         <div className="recipe-buttons">
-                            {recipe.isAuthor ? <button className="button">Editar receta</button> : <div></div>}
-                            {recipe.isSaved ? <button className="button" onClick={() => unsaveRecipe(recipeId)}>Eliminar de guardados</button> : <button className="button" onClick={() => saveRecipe(recipeId, true)}>Guardar receta</button>}
+                            {recipe?.isAuthor ? <button className="button">Editar receta</button> : <div></div>}
+                            {recipe?.isSaved ? <button className="button" onClick={() => unsaveRecipe(recipeId)}>Eliminar de guardados</button> : <button className="button" onClick={() => saveRecipe(recipeId, true)}>Guardar receta</button>}
                         </div>
                     </div>
                 </div>
@@ -120,7 +119,7 @@ export default function Recipe() {
                         </div>
                     )) : <div className="no-content">No hay comentarios</div>}
                 </div>
-            </>) : "Cargando..."}
+            </>) : <LocalLoading />}
         </>
     )
 }

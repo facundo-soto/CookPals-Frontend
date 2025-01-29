@@ -13,7 +13,7 @@ export default function Recipes(props) {
           <div className="recipe-info">
             <div className="recipe-header">
               <h2 className="recipe-title">{recipe.title}</h2>
-              <div className="save"><i className="bx bx-archive-in bx-md"></i></div>
+              <div className="save"><i className={`bx bx-md ${recipe.isSaved ? "bxs-archive-in" : "bx-archive-in"}`}></i></div>
             </div>
             <div className="recipe-ingredients"><b>Etiquetas:</b> {recipe.filters.map(filter => " " + filter)}</div>
             <div className="recipe-ingredients"><b>Contiene:</b> {recipe.ingredientsSelected.map(ing => " " + ing)}</div>

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useAuth } from '../../context/AuthContext'
 import Process from '../../components/process/process';
-import Loading from '../../components/loading/loading';
 import './profile.css'
 import { useNavigate } from 'react-router-dom';
 import Recipes from '../../components/recipes/recipes';
@@ -31,7 +30,6 @@ export default function Profile() {
 
     return (
         <>
-            <Loading reqUser={true} />
             <Process input={"nombre de usuario"} callback={changeUsername} />
             {user && (<>
                 <div className="profile main-box">
@@ -94,7 +92,7 @@ export default function Profile() {
                 </>)}
                 {show === 3 && (<>
                     <div className="recipes-container">
-                        {userRecipes?.length > 0 ? (<Recipes recipes={userRecipes} />) : (<div className="no-content">No tienes recetas</div>)}
+                        {userRecipes?.length > 0 ? (<Recipes recipes={userRecipes} />) : (<div className="no-content">No tienes recetas creadas</div>)}
                     </div>
                 </>)}
             </>)}

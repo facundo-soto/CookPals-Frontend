@@ -1,28 +1,10 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useAuth } from '../../context/AuthContext'
-import { useNavigate } from 'react-router-dom'
 import "./loading.css"
 
-export default function Loading(props) {
+export default function Loading() {
 
-    const { user, isLoading, handleAlert } = useAuth();
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if (props.reqUser !== undefined && !isLoading) {
-            if (!user && props.reqUser) {
-                navigate("/auth");
-                handleAlert(false, "Se requiere iniciar sesión")
-            }
-            if(user && props.reqVerification && !user.verified){
-                navigate("/profile");
-                handleAlert(false, "Se necesita una cuenta verificada");
-            }
-            if (user && !props.reqUser) {
-                navigate("/profile");
-            }
-        }
-    }, [user, isLoading, navigate]);
+    const { isLoading } = useAuth();
     if (isLoading) {
         return (
             <>

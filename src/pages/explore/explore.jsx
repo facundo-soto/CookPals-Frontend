@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import Recipes from '../../components/recipes/recipes'
 import { useAuth } from '../../context/AuthContext'
-import Loading from '../../components/loading/loading';
+import LocalLoading from '../../components/localLoading/localLoading';
 import "./explore.css";
 
 export default function Explore() {
     const { getRecipes } = useAuth();
-    const [recipes, setRecipes] = useState([]);
+    const [recipes, setRecipes] = useState(null);
 
     useEffect(() => {
         const fetchRecipes = async () => {
@@ -18,9 +18,8 @@ export default function Explore() {
     }, [getRecipes]);
   return (
     <>
-        <Loading />
         <div className="main-box recipes-container">
-            <Recipes recipes={recipes} />
+            {recipes ? <Recipes recipes={recipes} /> : <LocalLoading />}
         </div>
     </>
   )

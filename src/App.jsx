@@ -9,6 +9,7 @@ import Alert from './components/alert/alert';
 import CreateRecipe from './pages/create-recipe/create-recipe'
 import Explore from './pages/explore/explore';
 import Recipe from './pages/recipe/recipe';
+import ProtectedRoute from './context/protectedRoute';
 
 export default function App() {
   return (
@@ -17,12 +18,12 @@ export default function App() {
       <Alert />
       <Navbar/>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/explore" element={<Explore />} />
-          <Route path="/create-recipe" element={<CreateRecipe />} />
-          <Route path="/recipe/:recipeId" element={<Recipe />} />
+        <Route path="/" element={<ProtectedRoute element={<Home />} />} />
+          <Route path="/auth" element={<ProtectedRoute element={<Auth />} reqUser={false} />} />
+          <Route path="/profile" element={<ProtectedRoute element={<Profile />} reqUser={true} />} />
+          <Route path="/explore" element={<ProtectedRoute element={<Explore />} />} />
+          <Route path="/create-recipe" element={<ProtectedRoute element={<CreateRecipe />} reqUser={true} reqVerification={true} />} />
+          <Route path="/recipe/:recipeId" element={<ProtectedRoute element={<Recipe />} />} />
         </Routes>
     </AuthProvider>
     </BrowserRouter>

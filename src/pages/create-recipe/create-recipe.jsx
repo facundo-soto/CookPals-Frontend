@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './create-recipe.css'
 import { useAuth } from '../../context/AuthContext';
-import Loading from '../../components/loading/loading';
 
 export default function CreateRecipe() {
   const { submitRecipe } = useAuth();
@@ -101,7 +100,6 @@ export default function CreateRecipe() {
 
   return (
     <>
-      <Loading />
       {showFilters ? (
         <div className="absolute-bg">
           <div className="absolute-box filters-box">
