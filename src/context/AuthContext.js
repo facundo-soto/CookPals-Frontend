@@ -68,6 +68,7 @@ export function AuthProvider({ children }) {
             const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
             await createUser(userCredential.user);
             await sendEmailVerification(userCredential.user);
+            navigate("/profile");
             handleAlert(true, "Registro exitoso, revise su correo para verificar su email");
         }
         catch (error) {
@@ -81,6 +82,7 @@ export function AuthProvider({ children }) {
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, pass);
             console.log(userCredential);
+            navigate("/profile");
             handleAlert(true, "Ingreso exitoso");
         }
         catch (error) {

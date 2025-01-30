@@ -36,11 +36,9 @@ export default function Profile() {
                     <div className="profile-data">
                         <input type="file" id="profile-image" name="profile-image" className="vanish" onChange={handleImageChange}></input>
                         <label htmlFor="profile-image" className="profile-image-container">
-                            {user.image ? (<>
-                                <img className="profile-image" src={user.image} alt="Foto de perfil" />
-                                <i className="bx bxs-edit-alt overlay-icon"></i>
-                                <div className="overlay"></div>
-                            </>) : <i className="bx bx-user-circle color-sk profile-icon"></i>}
+                            <img className="profile-image" src={user.image} alt="Foto de perfil" />
+                            <i className="bx bxs-edit-alt overlay-icon"></i>
+                            <div className="overlay"></div>
                         </label>
                         <div className="data">
                             <p className="user-data"><b>Usuario: </b><span>{user.name}</span><i className="bx bxs-edit-alt color-sk" onClick={() => setShowProcess(true)}></i></p>

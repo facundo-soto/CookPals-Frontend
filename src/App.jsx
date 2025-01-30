@@ -23,7 +23,7 @@ export default function App() {
           <Route path="/profile" element={<ProtectedRoute element={<Profile />} reqUser={true} />} />
           <Route path="/explore" element={<ProtectedRoute element={<Explore />} />} />
           <Route path="/create-recipe" element={<ProtectedRoute element={<CreateRecipe />} reqUser={true} reqVerification={true} />} />
-          <Route path="/recipe/:recipeId" element={<ProtectedRoute element={<Recipe />} />} />
+          <Route path="/recipe/:recipeId" element={<ProtectedRoute element={<Recipe />} />} reqUser={true} reqVerification={true} />
         </Routes>
     </AuthProvider>
     </BrowserRouter>

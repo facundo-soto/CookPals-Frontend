@@ -16,7 +16,7 @@ export default function Recipe() {
             const recipe = await getRecipeById(recipeId);
             setRecipe(recipe);
         }
-        user && recipeId ? getRecipe() : console.log("Loading");
+        user?.uid && recipeId ? getRecipe() : console.log("Loading");
     }, [user, getRecipeById, recipeId]);
 
     const handleCommentSubmit = async () => {

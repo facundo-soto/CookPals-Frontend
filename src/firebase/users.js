@@ -27,7 +27,7 @@ export async function createUser(user) {
         if (!userDoc.exists()) {
             await setDoc(userDocRef, {
                 name: (user.displayName ?? user.email.split('@')[0]),
-                image: user.photoURL ?? null,
+                image: user.photoURL ?? "/profile-icon.png",
                 savedRecipes: []
             });
         }
@@ -53,9 +53,8 @@ export async function updateImage(uid, imageUrl){
         const userDoc = await getDoc(userDocRef);
         if(userDoc.exists()){
             await setDoc(userDocRef, {
-                name: userDoc.data().name,
                 image: imageUrl
-            });
+            }, { merge: true });
         }
         else{
             throw new Error("No se encontró al usuario");
