@@ -68,25 +68,38 @@ export function AuthProvider({ children }) {
             const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
             await createUser(userCredential.user);
             await sendEmailVerification(userCredential.user);
-            navigate("/profile");
             handleAlert(true, "Registro exitoso, revise su correo para verificar su email");
+            setUser({
+                uid: userCredential.user.uid,
+                name: userCredential.user.displayName ?? userCredential.user.email.split('@')[0],
+                image: userCredential.user.photoURL ?? null,
+                email: userCredential.user.email,
+                verified: userCredential.user.emailVerified
+            });
+            navigate("/profile");
         }
         catch (error) {
             handleAlert(false, "Registro fallido")
         }
         setIsLoading(false);
     }
-
     const logInWithEmailAndPass = async (email, pass) => {
         setIsLoading(true);
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, pass);
             console.log(userCredential);
+            handleAlert(true, "Ingreso exitoso", true);
+            setUser({
+                uid: userCredential.user.uid,
+                name: userCredential.user.displayName ?? userCredential.user.email.split('@')[0],
+                image: userCredential.user.photoURL ?? null,
+                email: userCredential.user.email,
+                verified: userCredential.user.emailVerified
+            });
             navigate("/profile");
-            handleAlert(true, "Ingreso exitoso");
         }
         catch (error) {
-            handleAlert(false, "Ingreso fallido")
+            handleAlert(false, "Ingreso fallido");
         }
         setIsLoading(false);
     }
