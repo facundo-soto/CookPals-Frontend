@@ -150,10 +150,10 @@ export default function CreateRecipe() {
           <div className="recipe-numbers">
             <div>
               <i className="bx bx-time-five"></i>
-              <input type="number" className="input" placeholder="Tiempo (en minutos)" name="time" onChange={handleRecipeDataChange} />
+              <input type="number" min={0} className="input" placeholder="Tiempo (en minutos)" name="time" onChange={handleRecipeDataChange} />
             </div>
             <div>
-              <input type="number" className="input" placeholder="Porciones" name="servings" onChange={handleRecipeDataChange} />
+              <input type="number" min={1} className="input" placeholder="Porciones" name="servings" onChange={handleRecipeDataChange} />
               <i className="bx bx-bowl-rice"></i>
             </div>
           </div>

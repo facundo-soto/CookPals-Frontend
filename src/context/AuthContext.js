@@ -190,8 +190,13 @@ export function AuthProvider({ children }) {
     const submitRecipe = async (recipe, image) => {
         setIsLoading(true);
         try {
-            if (!image || !recipe.title || !recipe.description || !recipe.ingredients || !recipe.steps || !recipe.filters) {
-                throw new Error("Faltan datos en la receta");
+            if (!image || !recipe.title || !recipe.description || !recipe.ingredients || !recipe.steps || !recipe.filters || recipe.time < 1 || recipe.servings < 1 || recipe.ingredients.length < 1 || recipe.steps.length < 1) {
+                handleAlert(false, "Datos inválidos");
+                return setIsLoading(false);
+            }
+            if(recipe.filters.length < 1 || recipe.ingredientsSelected.length < 1){
+                handleAlert (false, "Debe seleccionar al menos un filtro y un ingrediente");
+                return setIsLoading(false);
             }
             const formData = new FormData();
             formData.append("recipe", JSON.stringify(recipe));
@@ -321,7 +326,7 @@ export function AuthProvider({ children }) {
                 uid: user.uid,
                 recipeId: recipeId
             });
-            handleAlert(true, "Receta guardada con éxito", true);
+            handleAlert(true, "Receta guardada");
         } catch (error) {
             console.error(error);
             handleAlert(false, "Error al guardar la receta");
@@ -336,7 +341,7 @@ export function AuthProvider({ children }) {
                 uid: user.uid,
                 recipeId: recipeId
             });
-            handleAlert(true, "Receta desguardada con éxito", true);
+            handleAlert(true, "Receta desguardada");
         } catch (error) {
             console.error(error);
             handleAlert(false, "Error al desguardar la receta");
