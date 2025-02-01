@@ -40,10 +40,10 @@ export default function Recipe() {
                         </div>
                         <div className="recipe-description"><b>Descripción:</b>{recipe.description}</div>
                         <div className="recipe-author"><b>Autor/a:</b>{recipe.authorName}</div>
-                        <div className="recipe-tags">
+                        <div className="recipe-tags overflow">
                             <b>Etiquetas:</b>
                             {recipe.filters.map((tag, index) => (
-                                <span className="tag">{index !== 0 ? <i className="bx bxs-circle"></i> : <></>} {tag}</span>
+                                <>{index !== 0 ? <i className="bx bxs-circle"></i> : <></>} {tag}</>
                             ))}
                         </div>
                         <div className="recipe-numbers">

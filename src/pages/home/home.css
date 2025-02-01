@@ -22,11 +22,11 @@
 
 .home-image div img {
     height: 160px;
-    border-radius: 1vw;
+    border-radius: clamp(20px, 40px, 1vw);
+    margin-bottom: 25px;
 }
 
 .home-image div .home-title{
-    margin-top: 25px;
     font-size: 3rem;
     font-weight: 600;
 }
@@ -78,4 +78,20 @@
     width: fit-content;
     margin: auto;
     margin-top: 3vh;
+}
+
+@media (max-width: 600px){
+    .home-image{
+        max-width: none;
+        width: 100%;
+    }
+
+    .home-image div{
+        margin: 0;
+        align-items: center;
+    }
+
+    .home-image div span{
+        margin-left: 15px;
+    }
 }

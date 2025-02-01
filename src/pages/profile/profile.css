@@ -1,5 +1,5 @@
 .profile{
-    width: calc(90% - 40px);
+    width: 90%;
     padding: 20px;
 }
 
@@ -114,4 +114,27 @@
     font-size: 1.2rem;
     font-weight: 700;
     margin-bottom: 5px;
+}
+
+@media (max-width: 600px){
+    .profile-data{
+        display: block;
+    }
+
+    .profile-image-container{
+        display: block;
+        margin: auto;
+    }
+
+    .profile-image{
+        width: 100%;
+        margin: auto;
+    }
+
+    .profile-data .data{
+        border: none;
+        width: 100%;
+        padding: 0;
+        margin-top: 3vh;
+    }
 }

@@ -85,7 +85,6 @@ textarea{
   align-items: center;
   background-color: whitesmoke;
   border-radius: 10px;
-  border: solid 5px skyblue;
   transform: translate(0, -30px);
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
@@ -162,4 +161,11 @@ textarea{
   font-size: 1.5rem;
   font-weight: 600;
   color: gray;
+  text-align: center;
+}
+
+.overflow{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

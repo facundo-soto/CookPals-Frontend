@@ -110,7 +110,7 @@ a{
     object-fit: cover;
 }
 
-@media (max-width: 500px){
+@media (max-width: 600px){
     .recipe{
         display: block;
         max-height: 420px;
