@@ -23,7 +23,6 @@ a{
 
 .recipe .recipe-info{
     width: 65%;
-    height: 100%;
     padding: 0 20px;
     margin: auto;
 }
@@ -50,14 +49,23 @@ a{
 }
 
 .recipe .recipe-ingredients{
-    display: flex;
+    overflow: hidden;
     padding-bottom: 10px;
     font-size: 1.1rem;
     width: 90%;
+    max-width: 90%;
+    max-height: 30px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .recipe .recipe-ingredients b{
     padding-right: 5px;
+}
+
+.recipe .recipe-ingredients i{
+    margin: 0 5px;
+    font-size: 15px;
 }
 
 .recipe .recipe-numbers{
@@ -105,14 +113,12 @@ a{
 @media (max-width: 500px){
     .recipe{
         display: block;
-        max-height: 415px;
-        height: 415px;
+        max-height: 420px;
+        height: 420px;
     }
     .recipe .recipe-info{
-        width: calc(100% - 40px);
+        width: 100%;
         padding-bottom: 1vh;
-        height: fit-content;
-        max-height: 168px;
     }
     .recipe .recipe-image{
         display: flex;

@@ -256,7 +256,7 @@ export function AuthProvider({ children }) {
         try {
             const response = await axios.get(`${REACT_APP_API_URL}/recipes/get-recipes`, {
                 params: {
-                    uid: user.uid
+                    uid: user?.uid ?? ""
                 }
             });
             return response.data;
@@ -265,11 +265,24 @@ export function AuthProvider({ children }) {
         }
     }
 
+    const getBestRecipes = async () =>{
+        try{
+            const response = await axios.get(`${REACT_APP_API_URL}/recipes/get-best-recipes`, {
+                params: {
+                    uid: user?.uid ?? ""
+                }
+            });
+            return response.data;
+        } catch (error){
+            console.error(error);
+        }
+    }
+
     const getUserRecipes = async () => {
         try {
             const response = await axios.get(`${REACT_APP_API_URL}/recipes/get-user-recipes`, {
                 params: {
-                    uid: user.uid
+                    uid: user?.uid
                 }
             });
             return response.data;
@@ -296,10 +309,14 @@ export function AuthProvider({ children }) {
 
     const submitComment = async (recipeId, comment) => {
         setIsLoading(true);
-        comment.userId = user.uid;
-        console.log(recipeId, comment);
+
+        if(comment.text === "" || comment.stars === 0){
+            handleAlert(false, "Faltan datos");
+            return setIsLoading(false);
+        }
         
         try {
+            comment.userId = user.uid;
             const formData = new FormData();
             formData.append("recipeId", recipeId);
             formData.append("comment", JSON.stringify(comment));
@@ -309,7 +326,7 @@ export function AuthProvider({ children }) {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            handleAlert(true, "Comentario enviado con éxito", true);
+            handleAlert(true, "Comentario enviado con éxito");
         } catch (error) {
             console.error(error);
             handleAlert(false, "Error al enviar el comentario")
@@ -363,7 +380,7 @@ export function AuthProvider({ children }) {
     }
 
     return (
-        <AuthContext.Provider value={{ user, registerWithEmailAndPass, logInWithEmailAndPass, logInWithGoogle, logOut, alert, handleAlert, isLoading, setIsLoading, showProcess, setShowProcess, changeUsername, resendEmailVerification, sendChangePassEmail, uploadImage, changeImage, submitRecipe, getRecipes, getUserRecipes, getRecipeById, submitComment, getUserSavedRecipes, saveRecipe, unsaveRecipe }}>
+        <AuthContext.Provider value={{ user, registerWithEmailAndPass, logInWithEmailAndPass, logInWithGoogle, logOut, alert, handleAlert, isLoading, setIsLoading, showProcess, setShowProcess, changeUsername, resendEmailVerification, sendChangePassEmail, uploadImage, changeImage, submitRecipe, getRecipes, getBestRecipes, getUserRecipes, getRecipeById, submitComment, getUserSavedRecipes, saveRecipe, unsaveRecipe }}>
             {children}
         </AuthContext.Provider>
     )

@@ -2,19 +2,26 @@ import React, { useEffect, useState } from 'react'
 import './home.css'
 import { useAuth } from '../../context/AuthContext'
 import Recipes from '../../components/recipes/recipes';
+import { Link } from 'react-router-dom';
 
 export default function Home() {
-  const { user, getRecipes } = useAuth();
+  const { user, getRecipes, getBestRecipes } = useAuth();
   const [recipes, setRecipes] = useState(null);
-  const [recipesShowed, setRecipesShowed] = useState([false])
+  const [bestRecipes, setBestRecipes] = useState(null);
+  const [recipesShowed, setRecipesShowed] = useState([false, false])
 
   useEffect(() => {
     const fetchRecipes = async () => {
       const fetchedRecipes = await getRecipes();
       setRecipes(fetchedRecipes);
     };
+    const fetchBestRecipes = async () => {
+      const fetchedBestRecipes = await getBestRecipes();
+      setBestRecipes(fetchedBestRecipes);
+    };
+    fetchBestRecipes();
     fetchRecipes();
-  }, [getRecipes]);
+  }, [getRecipes, getBestRecipes]);
 
   const toggleRecipes = (index) => {
     const newRecipesShowed = [...recipesShowed];
@@ -33,7 +40,8 @@ export default function Home() {
         </div>
       </div>
       <div className="recipes-container">
-        <section className="recipes-section">
+        {user ? (<>
+          <section className="recipes-section">
           <div className="section-title">Recetas</div>
           {recipes ? (<>
             {recipes.length > 0 ? (<>
@@ -50,21 +58,25 @@ export default function Home() {
           </>) : <div className="no-content">Cargando...</div>}
         </section>
         <section className="recipes-section">
-          <div className="section-title">Recetas</div>
-          {recipes ? (<>
-            {recipes.length > 0 ? (<>
-              {recipesShowed[0] ? (<>
-                <Recipes recipes={recipes} />
-                <i className="bx bx-chevron-up section-icon color-sk" onClick={() => toggleRecipes(0)}></i>
+          <div className="section-title">Las 3 mejor calificadas</div>
+          {bestRecipes ? (<>
+            {bestRecipes.length > 0 ? (<>
+              {recipesShowed[1] ? (<>
+                <Recipes recipes={bestRecipes} />
+                <i className="bx bx-chevron-up section-icon color-sk" onClick={() => toggleRecipes(1)}></i>
               </>) : (<>
-                <Recipes recipes={[recipes[0]]} />
-                <i className="bx bx-chevron-down section-icon color-sk" onClick={() => toggleRecipes(0)}></i>
+                <Recipes recipes={[bestRecipes[0]]} />
+                <i className="bx bx-chevron-down section-icon color-sk" onClick={() => toggleRecipes(1)}></i>
               </>)}
             </>) : (<>
-              <Recipes recipes={recipes} />
+              <Recipes recipes={bestRecipes} />
             </>)}
           </>) : <div className="no-content">Cargando...</div>}
         </section>
+        </>) : (<>
+          <div className="no-content">Inicie sesión para ver las recomendaciones</div>
+          <Link to="/auth" className="button-login"><button className="button">Iniciar sesión</button></Link>
+        </>)}
       </div>
     </>
   )

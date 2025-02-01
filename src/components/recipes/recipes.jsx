@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 export default function Recipes(props) {
   const recipes = props.recipes;
-  console.log("Recetasdasdas: ", recipes);
   
   return (
     <>
@@ -15,8 +14,8 @@ export default function Recipes(props) {
               <h2 className="recipe-title">{recipe.title}</h2>
               <div className="save"><i className={`bx bx-md ${recipe.isSaved ? "bxs-archive-in" : "bx-archive-in"}`}></i></div>
             </div>
-            <div className="recipe-ingredients"><b>Etiquetas:</b> {recipe.filters.map(filter => " " + filter)}</div>
-            <div className="recipe-ingredients"><b>Contiene:</b> {recipe.ingredientsSelected.map(ing => " " + ing)}</div>
+            <div className="recipe-ingredients"><b>Etiquetas:</b> {recipe.filters.map((filter, index) => index===0 ? filter : (<><i className="bx bxs-circle"></i>{filter}</>))}</div>
+            <div className="recipe-ingredients"><b>Contiene:</b> {recipe.ingredientsSelected.map((ing, index) => index===0 ? ing : (<><i className="bx bxs-circle"></i>{ing}</>))}</div>
             <div className="recipe-numbers">
               <i className="bx bx-time-five"></i>
               <div className="time">{recipe.time} Minutos</div>
@@ -27,7 +26,7 @@ export default function Recipes(props) {
               <div className="recipe-author">Autor/a: {recipe.author}</div>
               <div className="recipe-calification">
                 <i className="bx bxs-star bx-sm"></i>
-                <div>{recipe.calification}</div>
+                <div>{recipe.calification.toFixed(1,1)}</div>
               </div>
             </div>
           </div>

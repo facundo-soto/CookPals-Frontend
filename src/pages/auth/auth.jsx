@@ -6,7 +6,7 @@ import './auth.css';
 export default function Auth() {
   const { registerWithEmailAndPass, logInWithEmailAndPass, logInWithGoogle, setShowProcess, sendChangePassEmail } = useAuth();
 
-  const [isLoging, setIsLoging] = useState(false);
+  const [isLoging, setIsLoging] = useState(true);
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
 

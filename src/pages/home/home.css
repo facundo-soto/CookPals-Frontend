@@ -72,3 +72,10 @@
     display: flex;
     margin: auto;
 }
+
+.recipes-container .button-login{
+    display: flex;
+    width: fit-content;
+    margin: auto;
+    margin-top: 3vh;
+}

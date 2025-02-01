@@ -20,9 +20,7 @@ export default function Recipe() {
     }, [user, getRecipeById, recipeId]);
 
     const handleCommentSubmit = async () => {
-        if (newComment.text !== "" && newComment.stars !== 0) {
-            await submitComment(recipeId, newComment);
-        }
+        await submitComment(recipeId, newComment);
     }
 
     return (
