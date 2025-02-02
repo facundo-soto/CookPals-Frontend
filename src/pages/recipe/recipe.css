@@ -187,8 +187,23 @@
     min-height: 100px;
 }
 
+.comments-container .comment .comment-options{
+    margin-top: 20px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
 @media (max-width: 600px) {
     .recipe-container .recipe-content {
         padding: 15px;
+    }
+
+    .comments-container .comment .comment-options{
+        flex-direction: column;
+    }
+
+    .comments-container .comment .comment-options .button{
+        margin: 5px 0;
     }
 }

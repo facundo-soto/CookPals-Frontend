@@ -10,17 +10,28 @@ export default function Recipe() {
     const { user, getRecipeById, submitComment, saveRecipe, unsaveRecipe } = useAuth();
     const [recipe, setRecipe] = useState(null);
     const [newComment, setNewComment] = useState({ text: "", stars: 0 });
+    const [isEditing, setIsEditing] = useState(false);
+
+    const toggleEdit = () => {
+        setNewComment(isEditing ? { text: "", stars: 0 } : recipe.userComment);
+        setIsEditing(!isEditing);
+    }
 
     useEffect(() => {
         const getRecipe = async () => {
             const recipe = await getRecipeById(recipeId);
+            recipe.userComment = recipe.comments.find(comment => comment.userId === user.uid) ?? false;
+            recipe.comments = recipe.comments.filter(comment => comment.userId !== user.uid);
             setRecipe(recipe);
         }
-        user?.uid && recipeId ? getRecipe() : console.log("Loading");
+        user?.uid && recipeId && getRecipe();
     }, [user, getRecipeById, recipeId]);
 
     const handleCommentSubmit = async () => {
         await submitComment(recipeId, newComment);
+    }
+    const handleCommentDelete = async () =>{
+        await submitComment(recipeId, {delete: true});
     }
 
     return (
@@ -31,7 +42,7 @@ export default function Recipe() {
                         <img src={recipe.image} alt={recipe.title} className="recipe-image" />
                     </div>
                     <div className="recipe-content">
-                    <div className="recipe-title title">{recipe.title}</div>
+                        <div className="recipe-title title">{recipe.title}</div>
                         <div className="recipe-calification">{recipe.calification.toFixed(1)}</div>
                         <div className="recipe-stars">
                             {[1, 2, 3, 4, 5].map(star => (
@@ -78,8 +89,8 @@ export default function Recipe() {
                             ))}
                         </div>
                         <div className="recipe-buttons">
-                            {recipe?.isAuthor ? <button className="button">Editar receta</button> : <div></div>}
-                            {recipe?.isSaved ? <button className="button" onClick={() => unsaveRecipe(recipeId)}>Eliminar de guardados</button> : <button className="button" onClick={() => saveRecipe(recipeId, true)}>Guardar receta</button>}
+                            {recipe.isAuthor ? <button className="button">Editar receta</button> : <div></div>}
+                            {recipe.isSaved ? <button className="button" onClick={() => unsaveRecipe(recipeId)}>Eliminar de guardados</button> : <button className="button" onClick={() => saveRecipe(recipeId, true)}>Guardar receta</button>}
                         </div>
                     </div>
                 </div>
@@ -87,7 +98,7 @@ export default function Recipe() {
                     <div className="title">Comentarios</div>
                 </div>
                 <div className="main-box comments-container">
-                    {recipe.isAuthor || recipe.hasCommented ? <></> : (
+                    {((!recipe.isAuthor && !recipe.hasCommented) || isEditing) && (
                         <div className="comment comment-form">
                             <div className="user">
                                 <img src={user ? user.image : ""} alt={user.displayName} className="user-image" />
@@ -98,11 +109,33 @@ export default function Recipe() {
                                     <i className={star <= newComment.stars ? "bx bxs-star color-sk" : "bx bx-star color-sk"} onClick={() => setNewComment({ ...newComment, stars: star })}></i>
                                 ))}
                             </div>
-                            <textarea type="text" className="comment-text input" placeholder="Añade un comentario..." onChange={(e) => setNewComment({ ...newComment, text: e.target.value })} />
-                            <button className="button" onClick={() => handleCommentSubmit()}>Subir comentario</button>
+                            <textarea type="text" value={newComment.text} className="comment-text input" placeholder="Añade un comentario..." onChange={(e) => setNewComment({ ...newComment, text: e.target.value })} />
+                            <div className="comment-options">
+                                <button className="button" onClick={handleCommentSubmit}>Subir comentario</button>
+                                {isEditing && <button className="button" onClick={toggleEdit}>Cancelar</button>}
+                            </div>
                         </div>
                     )}
-                    {recipe?.comments?.length > 0 ? recipe.comments.map(comment => (
+                    {recipe.userComment && !isEditing && (<>
+                        <div className="comment user-comment">
+                            <div className="user">
+                                <img src={recipe.userComment.userImage} alt={recipe.userComment.userName} className="user-image" />
+                                <div className="user-name">{recipe.userComment.userName}</div>
+                            </div>
+                            <div className="comment-stars">
+                                {[1, 2, 3, 4, 5].map(star => (
+                                    <i className={star <= recipe.userComment.stars ? "bx bxs-star color-sk no-hover" : "bx bx-star color-sk no-hover"}></i>
+                                ))}
+                            </div>
+                            <div className="comment-text">{recipe.userComment.text}</div>
+                            <div className="comment-options">
+                                <button className="button" onClick={toggleEdit}>Editar comentario</button>
+                                <button className="button" onClick={handleCommentDelete}>Eliminar comentario</button>
+                            </div>
+                        </div>
+                    </>)}
+
+                    {recipe.comments?.length > 0 ? recipe.comments.map(comment => (
                         <div className="comment">
                             <div className="user">
                                 <img src={comment.userImage} alt={comment.userName} className="user-image" />

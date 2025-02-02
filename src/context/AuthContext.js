@@ -309,8 +309,9 @@ export function AuthProvider({ children }) {
 
     const submitComment = async (recipeId, comment) => {
         setIsLoading(true);
-
-        if(comment.text === "" || comment.stars === 0){
+        console.log(comment);
+        
+        if((comment.text === "" || comment.stars === 0) && !comment.delete){
             handleAlert(false, "Faltan datos");
             return setIsLoading(false);
         }
@@ -321,12 +322,18 @@ export function AuthProvider({ children }) {
             formData.append("recipeId", recipeId);
             formData.append("comment", JSON.stringify(comment));
 
-            await axios.post(`${REACT_APP_API_URL}/recipes/submit-comment`, formData, {
+            await axios.post(`${REACT_APP_API_URL}/recipes/comment-controller`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            handleAlert(true, "Comentario enviado con éxito");
+
+            if(comment.delete){
+                handleAlert(true, "Comentario eliminado");
+            }
+            else{
+                handleAlert(true, "Comentario enviado");
+            }
         } catch (error) {
             console.error(error);
             handleAlert(false, "Error al enviar el comentario")
@@ -341,7 +348,6 @@ export function AuthProvider({ children }) {
                     uid: uid
                 }
             });
-            console.log(response.data);
             
             return response.data;
         } catch (error) {
