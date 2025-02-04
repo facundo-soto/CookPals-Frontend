@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import './recipe.css'
 import { useAuth } from '../../context/AuthContext';
 import LocalLoading from '../../components/localLoading/localLoading';
@@ -7,7 +7,7 @@ import LocalLoading from '../../components/localLoading/localLoading';
 
 export default function Recipe() {
     const { recipeId } = useParams();
-    const { user, getRecipeById, submitComment, saveRecipe, unsaveRecipe } = useAuth();
+    const { user, getRecipeById, submitComment, saveRecipe, unsaveRecipe, deleteRecipe } = useAuth();
     const [recipe, setRecipe] = useState(null);
     const [newComment, setNewComment] = useState({ text: "", stars: 0 });
     const [isEditing, setIsEditing] = useState(false);
@@ -89,7 +89,10 @@ export default function Recipe() {
                             ))}
                         </div>
                         <div className="recipe-buttons">
-                            {recipe.isAuthor ? <button className="button">Editar receta</button> : <div></div>}
+                            {recipe.isAuthor ? (<>
+                                <Link to={`/edit-recipe/${recipeId}`}><button className="button">Editar receta</button></Link>
+                                <button className="button" onClick={() => deleteRecipe(recipeId)}>Eliminar receta</button>
+                            </>) : <div></div>}
                             {recipe.isSaved ? <button className="button" onClick={() => unsaveRecipe(recipeId)}>Eliminar de guardados</button> : <button className="button" onClick={() => saveRecipe(recipeId, true)}>Guardar receta</button>}
                         </div>
                     </div>

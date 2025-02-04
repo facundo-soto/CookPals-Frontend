@@ -100,7 +100,7 @@ export default function CreateRecipe() {
 
   return (
     <>
-      {showFilters ? (
+      {showFilters && (
         <div className="absolute-bg">
           <div className="absolute-box filters-box">
             <i className="bx bx-x color-sk exit-icon" onClick={() => setShowFilters(false)}></i>
@@ -129,7 +129,7 @@ export default function CreateRecipe() {
             )}
           </div>
         </div>
-      ) : null}
+      )}
       <div className="create-recipe main-box">
         <div className="image-container">
           <input type="file" className="vanish" id="recipe-image" onChange={handleImageChange} />

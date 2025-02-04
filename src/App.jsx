@@ -9,6 +9,7 @@ import Alert from './components/alert/alert';
 import CreateRecipe from './pages/create-recipe/create-recipe'
 import Explore from './pages/explore/explore';
 import Recipe from './pages/recipe/recipe';
+import EditRecipe from './pages/edit-recipe/edit-recipe';
 import ProtectedRoute from './context/protectedRoute';
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
           <Route path="/explore" element={<ProtectedRoute element={<Explore />} />} />
           <Route path="/create-recipe" element={<ProtectedRoute element={<CreateRecipe />} reqUser={true} reqVerification={true} />} />
           <Route path="/recipe/:recipeId" element={<ProtectedRoute element={<Recipe />} reqUser={true} reqVerification={true} />} />
+          <Route path="/edit-recipe/:recipeId" element={<ProtectedRoute element={<EditRecipe />} reqUser={true} reqVerification={true} />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>

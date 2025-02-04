@@ -199,6 +199,15 @@
         padding: 15px;
     }
 
+    .recipe-container .recipe-content .recipe-buttons {
+        flex-direction: column;
+    }
+
+    .recipe-container .recipe-content .recipe-buttons .button{
+        width: 100%;
+        margin: 5px 0;
+    }
+
     .comments-container .comment .comment-options{
         flex-direction: column;
     }

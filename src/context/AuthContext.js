@@ -203,7 +203,9 @@ export function AuthProvider({ children }) {
     const submitRecipe = async (recipe, image) => {
         setIsLoading(true);
         try {
-            if (!image || !recipe.title || !recipe.description || !recipe.ingredients || !recipe.steps || !recipe.filters || recipe.time < 1 || recipe.servings < 1 || recipe.ingredients.length < 1 || recipe.steps.length < 1) {
+            recipe.ingredients = recipe.ingredients.filter(ingredient => ingredient.trim() !== "");
+            recipe.steps = recipe.steps.filter(step => step.trim() !== "")
+            if (!image || !recipe.title || !recipe.description || !recipe.filters || recipe.time < 1 || recipe.servings < 1 || recipe.ingredients.length < 1 || recipe.steps.length < 1) {
                 handleAlert(false, "Datos inválidos");
                 return setIsLoading(false);
             }
@@ -222,7 +224,7 @@ export function AuthProvider({ children }) {
             });
             console.log(response.data);
             handleAlert(true, "Receta subida con éxito");
-            navigate("/profile");
+            navigate(`/recipe/${response.data.recipe.id}`);
         } catch (error) {
             console.error(error);
             handleAlert(false, "Error al subir la receta");
@@ -385,8 +387,60 @@ export function AuthProvider({ children }) {
         setIsLoading(false);
     }
 
+    const editRecipe = async (recipe, image) =>{
+        setIsLoading(true);
+        try {
+            
+            recipe.ingredients = recipe.ingredients.filter(ingredient => ingredient.trim() !== "");
+            recipe.steps = recipe.steps.filter(step => step.trim() !== "")
+            if (!recipe.title || !recipe.description || !recipe.filters || recipe.time < 1 || recipe.servings < 1 || recipe.ingredients.length < 1 || recipe.steps.length < 1) {
+                handleAlert(false, "Datos inválidos");
+                return setIsLoading(false);
+            }
+            if(recipe.filters.length < 1 || recipe.ingredientsSelected.length < 1){
+                handleAlert (false, "Debe seleccionar al menos un filtro y un ingrediente");
+                return setIsLoading(false);
+            }
+            const formData = new FormData();
+            formData.append("recipe", JSON.stringify(recipe));
+            formData.append("uid", user.uid);
+            formData.append("image", image ?? null);
+            const response = await axios.post(`${REACT_APP_API_URL}/recipes/edit-recipe`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            console.log(response.data);
+            handleAlert(true, "Receta editada");
+            navigate(`/recipe/${recipe.id}`);
+        } catch (error) {
+            console.error(error);
+            handleAlert(false, "Error al editar la receta");
+        }
+        setIsLoading(false);
+    }
+
+    const deleteRecipe = async (recipeId) =>{
+        setIsLoading(true);
+        try {
+            navigate("/profile");
+            await axios.delete(`${REACT_APP_API_URL}/recipes/delete-recipe`, {
+                data: {
+                    recipeId: recipeId,
+                    userId: user.uid
+                }
+            });
+            
+            handleAlert(true, "Receta eliminada");
+        } catch (error) {
+            console.error(error);
+            handleAlert(false, "Error al eliminar la receta");
+        }
+        setIsLoading(false);
+    }
+
     return (
-        <AuthContext.Provider value={{ user, registerWithEmailAndPass, logInWithEmailAndPass, logInWithGoogle, logOut, alert, handleAlert, isLoading, setIsLoading, showProcess, setShowProcess, changeUsername, resendEmailVerification, sendChangePassEmail, uploadImage, changeImage, submitRecipe, getRecipes, getBestRecipes, getUserRecipes, getRecipeById, submitComment, getUserSavedRecipes, saveRecipe, unsaveRecipe }}>
+        <AuthContext.Provider value={{ user, registerWithEmailAndPass, logInWithEmailAndPass, logInWithGoogle, logOut, alert, handleAlert, isLoading, setIsLoading, showProcess, setShowProcess, changeUsername, resendEmailVerification, sendChangePassEmail, uploadImage, changeImage, submitRecipe, getRecipes, getBestRecipes, getUserRecipes, getRecipeById, submitComment, getUserSavedRecipes, saveRecipe, unsaveRecipe, editRecipe, deleteRecipe }}>
             {children}
         </AuthContext.Provider>
     )
